@@ -1,0 +1,31 @@
+{{- if .Values.virtualService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "jaehyeong-tech.labels" . | nindent 4 }}
+spec:
+  hosts:
+    - {{ .Values.virtualService.host }}
+  gateways:
+    - {{ .Values.virtualService.gateway }}
+  http:
+    # API routes (/api/*)
+    - match:
+        - uri:
+            prefix: /api
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: {{ .Release.Name }}-api
+            port:
+              number: {{ .Values.api.service.port }}
+    # All other routes go to Web
+    - route:
+        - destination:
+            host: {{ .Release.Name }}-web
+            port:
+              number: {{ .Values.web.service.port }}
+{{- end }}

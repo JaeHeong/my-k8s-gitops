@@ -1,0 +1,48 @@
+# Jaehyeong Tech Blog - Production Environment
+
+api:
+  replicaCount: 2
+  image:
+    tag: latest
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  env:
+    NODE_ENV: production
+
+web:
+  replicaCount: 2
+  image:
+    tag: latest
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+# PostgreSQL - Prod (더 많은 리소스)
+postgresql:
+  enabled: true
+  auth:
+    existingSecret: jaehyeong-tech-db-secret-prod
+  primary:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    persistence:
+      enabled: true
+      size: 10Gi
+
+# Prod 도메인
+virtualService:
+  host: tech.jaehyeong.site

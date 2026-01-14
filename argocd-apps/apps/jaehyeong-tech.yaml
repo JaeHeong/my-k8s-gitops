@@ -1,8 +1,7 @@
-# App of Apps - 이것만 수동 설치하면 나머지는 자동!
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app
+  name: jaehyeong-tech
   namespace: argocd
   finalizers:
     - argoproj.io/finalizer
@@ -10,14 +9,14 @@ spec:
   project: default
   source:
     repoURL: git@github.com:JaeHeong/my-k8s-gitops.git
-    path: argocd-apps
+    path: apps/jaehyeong-tech
     targetRevision: main
-    directory:
-      recurse: true    # 하위 폴더 모두 포함
-      exclude: 'root-app.yaml'  # 자기 자신 제외
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: jaehyeong-tech
   syncPolicy:
     automated:
       prune: true

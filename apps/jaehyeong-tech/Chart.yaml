@@ -1,0 +1,13 @@
+apiVersion: v2
+name: jaehyeong-tech
+description: Jaehyeong Tech Blog - API + Web
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+# PostgreSQL dependency
+dependencies:
+  - name: postgresql
+    version: "16.4.1"
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled

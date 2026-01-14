@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-provisioner
+  namespace: argocd
+  finalizers:
+    - argoproj.io/finalizer
+spec:
+  project: default
+  source:
+    # Rancher 공식 GitHub에서 Kustomize로 설치
+    repoURL: https://github.com/rancher/local-path-provisioner.git
+    path: deploy
+    targetRevision: v0.0.34
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: local-path-storage
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

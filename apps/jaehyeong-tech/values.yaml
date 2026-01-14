@@ -1,0 +1,32 @@
+# Jaehyeong Tech Blog - Base Values (공통 설정)
+
+# API Configuration
+api:
+  image:
+    repository: ghcr.io/jaeheong/jaehyeong-tech-api
+    pullPolicy: Always
+  service:
+    port: 3000
+  env:
+    PORT: "3000"
+
+# Web Configuration
+web:
+  image:
+    repository: ghcr.io/jaeheong/jaehyeong-tech-web
+    pullPolicy: Always
+  service:
+    port: 80
+
+# PostgreSQL (Bitnami Chart) - 공통 설정
+postgresql:
+  auth:
+    database: jaehyeong_tech
+    username: techblog
+    secretKeys:
+      userPasswordKey: password
+
+# Istio VirtualService
+virtualService:
+  enabled: true
+  gateway: istio-system/main-gateway
