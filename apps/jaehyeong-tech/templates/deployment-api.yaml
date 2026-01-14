@@ -108,11 +108,11 @@ spec:
             httpGet:
               path: /health
               port: {{ .Values.api.service.port }}
-            initialDelaySeconds: 10
-            periodSeconds: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /health
               port: {{ .Values.api.service.port }}
-            initialDelaySeconds: 15
-            periodSeconds: 10
+            initialDelaySeconds: 45
+            periodSeconds: 15
