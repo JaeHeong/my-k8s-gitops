@@ -1,0 +1,55 @@
+# ArgoCD Helm values
+# Chart: argo/argo-cd
+
+server:
+  # Ingress 설정 (필요시)
+  ingress:
+    enabled: false
+    # enabled: true
+    # hosts:
+    #   - argocd.example.com
+
+  # 리소스
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# Redis
+redis:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+# Repo Server
+repoServer:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# Application Controller
+controller:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# Configs
+configs:
+  params:
+    # 자동 동기화 주기 (초)
+    timeout.reconciliation: 180s

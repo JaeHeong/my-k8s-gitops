@@ -1,0 +1,27 @@
+# Default AppProject 확장
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: default
+  namespace: argocd
+spec:
+  description: Default project for all apps
+
+  # 모든 소스 허용
+  sourceRepos:
+    - '*'
+
+  # 모든 목적지 허용
+  destinations:
+    - namespace: '*'
+      server: '*'
+
+  # 클러스터 리소스 허용
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
+  # 네임스페이스 리소스 허용
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'

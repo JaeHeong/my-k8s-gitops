@@ -1,0 +1,26 @@
+# Helm
+charts/*.tgz
+*.tgz
+
+# Secrets (암호화 안 된 것)
+*.secret.yaml
+*-secret.yaml
+!sealed-secrets/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.bak
