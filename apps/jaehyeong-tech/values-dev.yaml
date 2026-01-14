@@ -12,10 +12,10 @@ api:
   resources:
     requests:
       cpu: 50m
-      memory: 128Mi
-    limits:
-      cpu: 200m
       memory: 256Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
   env:
     PORT: "3000"
     TZ: "Asia/Seoul"
