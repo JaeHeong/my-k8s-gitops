@@ -8,7 +8,7 @@ secrets:
 api:
   replicaCount: 2
   image:
-    tag: latest
+    tag: 56c180a
   resources:
     requests:
       cpu: 200m
@@ -30,7 +30,7 @@ api:
 web:
   replicaCount: 2
   image:
-    tag: latest
+    tag: 56c180a
   resources:
     requests:
       cpu: 50m
