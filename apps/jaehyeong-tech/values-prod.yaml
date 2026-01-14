@@ -39,25 +39,22 @@ web:
       cpu: 200m
       memory: 128Mi
 
-# PostgreSQL - Prod
+# PostgreSQL - Bitnami subchart 비활성화 (별도 manifest 사용)
 postgresql:
-  enabled: true
-  auth:
-    existingSecret: jaehyeong-tech-db-secret-prod
-  image:
-    tag: "16.4.0-debian-12-r23"
-  primary:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 500m
-        memory: 512Mi
-    persistence:
-      enabled: true
-      size: 1Gi
-      storageClass: local-path
+  enabled: false
+
+# PostgreSQL (postgres:16-alpine)
+db:
+  secretName: jaehyeong-tech-db-secret-prod
+  storageClass: local-path
+  size: 1Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
 
 # Prod 도메인 (여러 호스트)
 virtualService:
