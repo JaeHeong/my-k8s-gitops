@@ -45,7 +45,7 @@ postgresql:
   auth:
     existingSecret: jaehyeong-tech-db-secret-prod
   image:
-    tag: "17"
+    tag: "16"
   primary:
     resources:
       requests:
