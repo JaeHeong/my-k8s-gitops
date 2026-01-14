@@ -51,7 +51,7 @@ configs:
   cm:
     url: https://argocd.jaehyeong.site
   params:
-    # 자동 동기화 주기 (초)
-    timeout.reconciliation: 180s
+    # 자동 동기화 주기 (webhook 폴백용, 30분)
+    timeout.reconciliation: 1800s
     # Istio 사용 시 insecure 모드 (TLS는 Istio Gateway가 처리)
     server.insecure: true
