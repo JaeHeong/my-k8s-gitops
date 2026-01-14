@@ -104,15 +104,3 @@ spec:
                   key: ga-private-key
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.api.service.port }}
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.api.service.port }}
-            initialDelaySeconds: 45
-            periodSeconds: 15
