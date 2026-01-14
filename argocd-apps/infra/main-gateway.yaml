@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: main-gateway
+  namespace: argocd
+  finalizers:
+    - argoproj.io/finalizer
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:JaeHeong/my-k8s-gitops.git
+    path: infra/istio-gateway
+    targetRevision: main
+    directory:
+      include: 'main-gateway.yaml'
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

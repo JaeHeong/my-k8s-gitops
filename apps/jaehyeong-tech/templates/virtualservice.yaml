@@ -7,7 +7,13 @@ metadata:
     {{- include "jaehyeong-tech.labels" . | nindent 4 }}
 spec:
   hosts:
+    {{- if .Values.virtualService.hosts }}
+    {{- range .Values.virtualService.hosts }}
+    - {{ . }}
+    {{- end }}
+    {{- else }}
     - {{ .Values.virtualService.host }}
+    {{- end }}
   gateways:
     - {{ .Values.virtualService.gateway }}
   http:

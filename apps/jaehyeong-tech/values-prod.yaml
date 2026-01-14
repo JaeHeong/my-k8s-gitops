@@ -1,5 +1,10 @@
 # Jaehyeong Tech Blog - Production Environment
 
+# Secret 이름
+secrets:
+  name: jaehyeong-tech-secret-prod
+
+# API Configuration
 api:
   replicaCount: 2
   image:
@@ -12,8 +17,16 @@ api:
       cpu: 500m
       memory: 512Mi
   env:
-    NODE_ENV: production
+    PORT: "3000"
+    TZ: "Asia/Seoul"
+    NODE_ENV: "production"
+    SITE_URL: "https://tech.jaehyeong.com"
+    CORS_ORIGIN: "https://tech.jaehyeong.com"
+    # Google Analytics (non-secret)
+    GA_PROPERTY_ID: "518938330"
+    GA_CLIENT_EMAIL: "ga4-reader@jaehyeong-tech.iam.gserviceaccount.com"
 
+# Web Configuration
 web:
   replicaCount: 2
   image:
@@ -26,7 +39,7 @@ web:
       cpu: 200m
       memory: 128Mi
 
-# PostgreSQL - Prod (더 많은 리소스)
+# PostgreSQL - Prod
 postgresql:
   enabled: true
   auth:
@@ -41,8 +54,11 @@ postgresql:
         memory: 512Mi
     persistence:
       enabled: true
-      size: 10Gi
+      size: 1Gi
+      storageClass: local-path
 
-# Prod 도메인
+# Prod 도메인 (여러 호스트)
 virtualService:
-  host: tech.jaehyeong.site
+  hosts:
+    - tech.jaehyeong.com
+    - jaehyeong.com

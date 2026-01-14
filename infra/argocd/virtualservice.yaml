@@ -7,7 +7,7 @@ spec:
   hosts:
     - argocd.jaehyeong.site
   gateways:
-    - argocd-gateway
+    - istio-system/main-gateway
   http:
     - match:
         - uri:

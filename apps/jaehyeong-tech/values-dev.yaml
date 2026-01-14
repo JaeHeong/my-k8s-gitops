@@ -1,5 +1,10 @@
 # Jaehyeong Tech Blog - Dev Environment
 
+# Secret 이름
+secrets:
+  name: jaehyeong-tech-secret-dev
+
+# API Configuration
 api:
   replicaCount: 1
   image:
@@ -12,8 +17,16 @@ api:
       cpu: 200m
       memory: 256Mi
   env:
-    NODE_ENV: development
+    PORT: "3000"
+    TZ: "Asia/Seoul"
+    NODE_ENV: "development"
+    SITE_URL: "https://dev-tech.jaehyeong.site"
+    CORS_ORIGIN: "https://dev-tech.jaehyeong.site"
+    # Google Analytics (non-secret)
+    GA_PROPERTY_ID: "518938330"
+    GA_CLIENT_EMAIL: "ga4-reader@jaehyeong-tech.iam.gserviceaccount.com"
 
+# Web Configuration
 web:
   replicaCount: 1
   image:
@@ -26,7 +39,7 @@ web:
       cpu: 100m
       memory: 64Mi
 
-# PostgreSQL - Dev (작은 리소스)
+# PostgreSQL - Dev
 postgresql:
   enabled: true
   auth:
@@ -42,6 +55,7 @@ postgresql:
     persistence:
       enabled: true
       size: 1Gi
+      storageClass: local-path
 
 # Dev 도메인
 virtualService:

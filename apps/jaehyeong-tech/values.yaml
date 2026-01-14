@@ -1,5 +1,9 @@
 # Jaehyeong Tech Blog - Base Values (공통 설정)
 
+# Secret 이름 (환경별로 오버라이드)
+secrets:
+  name: jaehyeong-tech-secret
+
 # API Configuration
 api:
   image:
@@ -9,6 +13,7 @@ api:
     port: 3000
   env:
     PORT: "3000"
+    TZ: "Asia/Seoul"
 
 # Web Configuration
 web:
@@ -20,6 +25,7 @@ web:
 
 # PostgreSQL (Bitnami Chart) - 공통 설정
 postgresql:
+  enabled: true
   auth:
     database: jaehyeong_tech
     username: techblog
