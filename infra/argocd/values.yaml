@@ -2,12 +2,9 @@
 # Chart: argo/argo-cd
 
 server:
-  # Ingress 설정 (필요시)
-  ingress:
-    enabled: false
-    # enabled: true
-    # hosts:
-    #   - argocd.example.com
+  # Service 타입 (Istio Gateway 뒤에 있으므로 ClusterIP)
+  service:
+    type: ClusterIP
 
   # 리소스
   resources:
@@ -50,6 +47,11 @@ controller:
 
 # Configs
 configs:
+  # argocd-cm ConfigMap
+  cm:
+    url: https://argocd.jaehyeong.site
   params:
     # 자동 동기화 주기 (초)
     timeout.reconciliation: 180s
+    # Istio 사용 시 insecure 모드 (TLS는 Istio Gateway가 처리)
+    server.insecure: true

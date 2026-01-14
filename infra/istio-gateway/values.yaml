@@ -1,0 +1,29 @@
+# Istio Gateway (Ingress) values
+# Chart: istio/gateway
+
+# Service 설정
+service:
+  type: LoadBalancer
+  ports:
+    - name: http2
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+
+# 리소스
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+# 레플리카
+replicaCount: 1
+autoscaling:
+  enabled: false

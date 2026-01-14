@@ -1,0 +1,5 @@
+# Istio Base (CRD) values
+# Chart: istio/base
+
+# 기본 설정 - CRD만 설치하므로 설정 거의 없음
+defaultRevision: default

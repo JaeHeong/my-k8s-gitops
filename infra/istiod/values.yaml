@@ -1,0 +1,31 @@
+# Istiod (Control Plane) values
+# Chart: istio/istiod
+
+pilot:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+
+  # 자동 사이드카 인젝션 설정
+  autoscaleEnabled: false
+  replicaCount: 1
+
+# 글로벌 설정
+global:
+  # 프록시 리소스
+  proxy:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+
+  # 로깅
+  logging:
+    level: "default:info"

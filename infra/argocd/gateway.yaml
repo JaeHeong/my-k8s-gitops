@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: argocd-gateway
+  namespace: argocd
+spec:
+  selector:
+    istio: gateway    # istio-gateway Pod 선택
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - argocd.jaehyeong.site
+      # HTTP → HTTPS 리다이렉트 (TLS 설정 후 활성화)
+      # tls:
+      #   httpsRedirect: true
+    # HTTPS (TLS 인증서 설정 후 활성화)
+    # - port:
+    #     number: 443
+    #     name: https
+    #     protocol: HTTPS
+    #   hosts:
+    #     - argocd.jaehyeong.site
+    #   tls:
+    #     mode: SIMPLE
+    #     credentialName: argocd-tls
