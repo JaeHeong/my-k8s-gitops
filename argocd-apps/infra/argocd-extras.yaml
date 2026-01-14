@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-extras
+  namespace: argocd
+  finalizers:
+    - argoproj.io/finalizer
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:JaeHeong/my-k8s-gitops.git
+    path: infra/argocd
+    targetRevision: main
+    directory:
+      include: 'virtualservice.yaml'
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

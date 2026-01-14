@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+    - argoproj.io/finalizer
+spec:
+  project: default
+  sources:
+    # ArgoCD 공식 Helm 차트
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      targetRevision: 9.3.3
+      helm:
+        valueFiles:
+          - $values/infra/argocd/values.yaml
+    # Custom values 파일 참조
+    - repoURL: git@github.com:JaeHeong/my-k8s-gitops.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
