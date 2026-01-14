@@ -17,6 +17,24 @@ spec:
   gateways:
     - {{ .Values.virtualService.gateway }}
   http:
+    # RSS feed
+    - match:
+        - uri:
+            exact: /rss.xml
+      route:
+        - destination:
+            host: {{ .Release.Name }}-api
+            port:
+              number: {{ .Values.api.service.port }}
+    # robots.txt
+    - match:
+        - uri:
+            exact: /robots.txt
+      route:
+        - destination:
+            host: {{ .Release.Name }}-api
+            port:
+              number: {{ .Values.api.service.port }}
     # API routes (/api/*)
     - match:
         - uri:
