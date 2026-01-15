@@ -35,6 +35,15 @@ spec:
             host: {{ .Release.Name }}-api
             port:
               number: {{ .Values.api.service.port }}
+    # sitemap.xml
+    - match:
+        - uri:
+            exact: /sitemap.xml
+      route:
+        - destination:
+            host: {{ .Release.Name }}-api
+            port:
+              number: {{ .Values.api.service.port }}
     # API routes (/api/*)
     - match:
         - uri:
