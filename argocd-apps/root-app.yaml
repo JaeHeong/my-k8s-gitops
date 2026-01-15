@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: root-app
   namespace: argocd
+  labels:
+    category: system
   finalizers:
     - argoproj.io/finalizer
 spec:

@@ -3,6 +3,9 @@ kind: Application
 metadata:
   name: jaehyeong-tech-prod
   namespace: argocd
+  labels:
+    category: apps
+    env: prod
   finalizers:
     - argoproj.io/finalizer
 spec:

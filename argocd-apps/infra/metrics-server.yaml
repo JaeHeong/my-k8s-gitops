@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: metrics-server
   namespace: argocd
+  labels:
+    category: infra
   finalizers:
     - argoproj.io/finalizer
 spec:
