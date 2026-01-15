@@ -2,10 +2,10 @@
 charts/*.tgz
 *.tgz
 
-# Secrets (암호화 안 된 것)
+# Secrets (암호화 안 된 것, sealed-secrets 폴더 제외)
 *.secret.yaml
 *-secret.yaml
-!sealed-secrets/
+!sealed-secrets/*
 
 # Environment
 .env
@@ -24,3 +24,7 @@ Thumbs.db
 # Temporary
 *.tmp
 *.bak
+
+# Database dumps
+*.sql
+*_dump*.sql
