@@ -4,11 +4,11 @@
 pilot:
   resources:
     requests:
-      cpu: 100m
-      memory: 256Mi
+      cpu: 50m
+      memory: 128Mi
     limits:
       cpu: 500m
-      memory: 1Gi
+      memory: 512Mi
 
   # 자동 사이드카 인젝션 설정
   autoscaleEnabled: false
