@@ -1,9 +1,9 @@
 # Istio Gateway (Ingress) values
 # Chart: istio/gateway
 
-# Service 설정
+# Service 설정 - cloudflared tunnel로만 서빙
 service:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http2
       port: 80
