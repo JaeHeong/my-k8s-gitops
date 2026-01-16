@@ -17,10 +17,16 @@ spec:
   gateways:
     - {{ .Values.virtualService.gateway }}
   http:
-    # Auth Service
+    # Auth Service (auth, author, users, tenants)
     - match:
         - uri:
             prefix: /api/auth
+        - uri:
+            prefix: /api/author
+        - uri:
+            prefix: /api/users
+        - uri:
+            prefix: /api/tenants
       headers:
         request:
           set:
