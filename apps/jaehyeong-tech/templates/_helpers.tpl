@@ -4,16 +4,8 @@ Common labels
 {{- define "jaehyeong-tech.labels" -}}
 app.kubernetes.io/name: {{ .Chart.Name }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | default "1.0.0" }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-API selector labels
-*/}}
-{{- define "jaehyeong-tech.api.selectorLabels" -}}
-app: {{ .Release.Name }}-api
-component: api
 {{- end }}
 
 {{/*
@@ -25,8 +17,9 @@ component: web
 {{- end }}
 
 {{/*
-Database URL helper
+Service selector labels (for MSA services)
 */}}
-{{- define "jaehyeong-tech.databaseUrl" -}}
-postgresql://{{ .Values.postgresql.auth.username }}:$(DB_PASSWORD)@{{ .Release.Name }}-postgresql:5432/{{ .Values.postgresql.auth.database }}
+{{- define "jaehyeong-tech.service.selectorLabels" -}}
+app: {{ .Release.Name }}-{{ .name }}
+component: {{ .name }}
 {{- end }}

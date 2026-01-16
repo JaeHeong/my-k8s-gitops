@@ -11,52 +11,98 @@ spec:
     {{- range .Values.virtualService.hosts }}
     - {{ . }}
     {{- end }}
-    {{- else }}
+    {{- else if .Values.virtualService.host }}
     - {{ .Values.virtualService.host }}
     {{- end }}
   gateways:
     - {{ .Values.virtualService.gateway }}
   http:
-    # RSS feed
+    # Auth Service
+    - match:
+        - uri:
+            prefix: /api/auth
+      route:
+        - destination:
+            host: {{ .Release.Name }}-auth
+            port:
+              number: 3001
+
+    # Blog Service (posts, categories, tags)
+    - match:
+        - uri:
+            prefix: /api/posts
+        - uri:
+            prefix: /api/categories
+        - uri:
+            prefix: /api/tags
+      route:
+        - destination:
+            host: {{ .Release.Name }}-blog
+            port:
+              number: 3002
+
+    # Comment Service
+    - match:
+        - uri:
+            prefix: /api/comments
+      route:
+        - destination:
+            host: {{ .Release.Name }}-comment
+            port:
+              number: 3003
+
+    # Page Service
+    - match:
+        - uri:
+            prefix: /api/pages
+      route:
+        - destination:
+            host: {{ .Release.Name }}-page
+            port:
+              number: 3004
+
+    # Analytics Service
+    - match:
+        - uri:
+            prefix: /api/analytics
+        - uri:
+            prefix: /api/visitors
+      route:
+        - destination:
+            host: {{ .Release.Name }}-analytics
+            port:
+              number: 3005
+
+    # Storage Service
+    - match:
+        - uri:
+            prefix: /api/files
+        - uri:
+            prefix: /api/upload
+      route:
+        - destination:
+            host: {{ .Release.Name }}-storage
+            port:
+              number: 3006
+
+    # RSS, sitemap, robots - route to blog service
     - match:
         - uri:
             exact: /rss.xml
-      route:
-        - destination:
-            host: {{ .Release.Name }}-api
-            port:
-              number: {{ .Values.api.service.port }}
-    # robots.txt
-    - match:
+        - uri:
+            exact: /sitemap.xml
         - uri:
             exact: /robots.txt
       route:
         - destination:
-            host: {{ .Release.Name }}-api
+            host: {{ .Release.Name }}-blog
             port:
-              number: {{ .Values.api.service.port }}
-    # sitemap.xml
-    - match:
-        - uri:
-            exact: /sitemap.xml
-      route:
-        - destination:
-            host: {{ .Release.Name }}-api
-            port:
-              number: {{ .Values.api.service.port }}
-    # API routes (/api/*)
-    - match:
-        - uri:
-            prefix: /api
-      route:
-        - destination:
-            host: {{ .Release.Name }}-api
-            port:
-              number: {{ .Values.api.service.port }}
-    # All other routes go to Web
+              number: 3002
+
+    # Default: Web (Frontend)
     - route:
         - destination:
             host: {{ .Release.Name }}-web
             port:
-              number: {{ .Values.web.service.port }}
+              number: 80
 {{- end }}

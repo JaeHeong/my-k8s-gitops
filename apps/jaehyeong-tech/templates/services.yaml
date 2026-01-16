@@ -1,0 +1,86 @@
+{{- range $name, $svc := .Values.services }}
+{{- if $svc.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-{{ $name }}
+  labels:
+    {{- include "jaehyeong-tech.labels" $ | nindent 4 }}
+    app: {{ $.Release.Name }}-{{ $name }}
+    component: {{ $name }}
+spec:
+  replicas: {{ $svc.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-{{ $name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-{{ $name }}
+        component: {{ $name }}
+    spec:
+      containers:
+        - name: {{ $name }}
+          image: "{{ $svc.image.repository }}:{{ $svc.image.tag }}"
+          imagePullPolicy: {{ $svc.image.pullPolicy | default "Always" }}
+          ports:
+            - containerPort: {{ $svc.port }}
+          env:
+            - name: PORT
+              value: "{{ $svc.port }}"
+            - name: NODE_ENV
+              value: {{ $svc.env.NODE_ENV | default "production" | quote }}
+            {{- if $svc.env }}
+            {{- range $key, $value := $svc.env }}
+            {{- if ne $key "NODE_ENV" }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if $svc.secrets }}
+            {{- range $svc.secrets }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretName }}
+                  key: {{ .key }}
+            {{- end }}
+            {{- end }}
+          {{- if $svc.resources }}
+          resources:
+            {{- toYaml $svc.resources | nindent 12 }}
+          {{- end }}
+          {{- if $svc.healthCheck }}
+          livenessProbe:
+            httpGet:
+              path: {{ $svc.healthCheck.path | default "/health" }}
+              port: {{ $svc.port }}
+            initialDelaySeconds: {{ $svc.healthCheck.initialDelay | default 30 }}
+            periodSeconds: {{ $svc.healthCheck.period | default 10 }}
+          readinessProbe:
+            httpGet:
+              path: {{ $svc.healthCheck.path | default "/health" }}
+              port: {{ $svc.port }}
+            initialDelaySeconds: {{ $svc.healthCheck.initialDelay | default 5 }}
+            periodSeconds: {{ $svc.healthCheck.period | default 5 }}
+          {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-{{ $name }}
+  labels:
+    {{- include "jaehyeong-tech.labels" $ | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ $svc.port }}
+      targetPort: {{ $svc.port }}
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ $.Release.Name }}-{{ $name }}
+{{- end }}
+{{- end }}

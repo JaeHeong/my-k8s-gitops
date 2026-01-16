@@ -1,36 +1,118 @@
-# Jaehyeong Tech Blog - Base Values (공통 설정)
+# Jaehyeong Tech Blog - Base Values (MSA 공통 설정)
 
 # Secret 이름 (환경별로 오버라이드)
 secrets:
   name: jaehyeong-tech-secret
 
-# API Configuration
-api:
-  image:
-    repository: ghcr.io/jaeheong/jaehyeong-tech-api
-    pullPolicy: Always
-  service:
-    port: 3000
-  env:
-    PORT: "3000"
-    TZ: "Asia/Seoul"
-
-# Web Configuration
-web:
-  image:
-    repository: ghcr.io/jaeheong/jaehyeong-tech-web
-    pullPolicy: Always
-  service:
-    port: 80
-
-# PostgreSQL (Bitnami Chart) - 공통 설정
-postgresql:
-  enabled: true
+# MSA Services Configuration
+services:
   auth:
-    database: jaehyeong_tech
-    username: techblog
-    secretKeys:
-      userPasswordKey: password
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-auth
+      tag: latest
+      pullPolicy: Always
+    port: 3001
+    env:
+      NODE_ENV: development
+      TZ: Asia/Seoul
+    healthCheck:
+      path: /health
+      initialDelay: 10
+      period: 10
+
+  blog:
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-blog
+      tag: latest
+      pullPolicy: Always
+    port: 3002
+    env:
+      NODE_ENV: development
+      TZ: Asia/Seoul
+    healthCheck:
+      path: /health
+      initialDelay: 10
+      period: 10
+
+  comment:
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-comment
+      tag: latest
+      pullPolicy: Always
+    port: 3003
+    env:
+      NODE_ENV: development
+      TZ: Asia/Seoul
+    healthCheck:
+      path: /health
+      initialDelay: 10
+      period: 10
+
+  page:
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-page
+      tag: latest
+      pullPolicy: Always
+    port: 3004
+    env:
+      NODE_ENV: development
+      TZ: Asia/Seoul
+    healthCheck:
+      path: /health
+      initialDelay: 10
+      period: 10
+
+  analytics:
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-analytics
+      tag: latest
+      pullPolicy: Always
+    port: 3005
+    env:
+      NODE_ENV: development
+      TZ: Asia/Seoul
+    healthCheck:
+      path: /health
+      initialDelay: 10
+      period: 10
+
+  storage:
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-storage
+      tag: latest
+      pullPolicy: Always
+    port: 3006
+    env:
+      NODE_ENV: development
+      TZ: Asia/Seoul
+    healthCheck:
+      path: /health
+      initialDelay: 10
+      period: 10
+
+  web:
+    enabled: true
+    image:
+      repository: ghcr.io/jaeheong/jaehyeong-tech-web
+      tag: latest
+      pullPolicy: Always
+    port: 80
+    env:
+      NODE_ENV: development
+    healthCheck:
+      path: /
+      initialDelay: 5
+      period: 10
+
+# PostgreSQL - 별도 manifest 사용
+postgresql:
+  enabled: false
 
 # Istio VirtualService
 virtualService:

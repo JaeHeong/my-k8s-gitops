@@ -1,45 +1,123 @@
-# Jaehyeong Tech Blog - Dev Environment
+# Jaehyeong Tech Blog - Dev Environment (MSA)
 
 # Secret 이름
 secrets:
   name: jaehyeong-tech-secret-dev
 
-# API Configuration
-api:
-  replicaCount: 1
-  image:
-    tag: dev-bed342d
-  resources:
-    requests:
-      cpu: 50m
-      memory: 256Mi
-    limits:
-      cpu: 100m
-      memory: 512Mi
-  env:
-    PORT: "3000"
-    TZ: "Asia/Seoul"
-    NODE_ENV: "development"
-    SITE_URL: "https://dev-tech.jaehyeong.site"
-    CORS_ORIGIN: "https://dev-tech.jaehyeong.site"
-    # Google Analytics (non-secret)
-    GA_PROPERTY_ID: "518938330"
-    GA_CLIENT_EMAIL: "ga4-reader@jaehyeong-tech.iam.gserviceaccount.com"
+# MSA Services - Dev 환경 오버라이드
+services:
+  auth:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
 
-# Web Configuration
-web:
-  replicaCount: 1
-  image:
-    tag: dev-bed342d
-  resources:
-    requests:
-      cpu: 30m
-      memory: 32Mi
-    limits:
-      cpu: 100m
-      memory: 64Mi
+  blog:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
 
-# PostgreSQL - Bitnami subchart 비활성화 (별도 manifest 사용)
+  comment:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+
+  page:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+
+  analytics:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      GA_PROPERTY_ID: "518938330"
+      GA_CLIENT_EMAIL: "ga4-reader@jaehyeong-tech.iam.gserviceaccount.com"
+
+  storage:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+
+  web:
+    enabled: true
+    replicaCount: 1
+    image:
+      tag: latest
+    resources:
+      requests:
+        cpu: 30m
+        memory: 64Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+
+# PostgreSQL - 별도 manifest 사용
 postgresql:
   enabled: false
 
