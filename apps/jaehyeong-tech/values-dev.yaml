@@ -10,7 +10,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 50m
@@ -29,7 +29,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 50m
@@ -48,7 +48,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 50m
@@ -67,7 +67,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 50m
@@ -86,7 +86,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 50m
@@ -107,7 +107,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 50m
@@ -126,7 +126,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8efe0cd
+      tag: dev-81bf6a9
     resources:
       requests:
         cpu: 30m
