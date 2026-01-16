@@ -10,7 +10,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 50m
@@ -26,7 +26,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 50m
@@ -42,7 +42,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 50m
@@ -58,7 +58,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 50m
@@ -74,7 +74,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 50m
@@ -92,7 +92,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 50m
@@ -108,7 +108,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: latest
+      tag: dev-0d887f4
     resources:
       requests:
         cpu: 30m
