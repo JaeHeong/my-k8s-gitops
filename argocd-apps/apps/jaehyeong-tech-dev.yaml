@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: git@github.com:JaeHeong/my-k8s-gitops.git
     path: apps/jaehyeong-tech
-    targetRevision: main
+    targetRevision: msa
     helm:
       valueFiles:
         - values.yaml       # 공통 설정
