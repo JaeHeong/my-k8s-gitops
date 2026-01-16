@@ -23,7 +23,7 @@ services:
     secretEnv:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
-        key: DATABASE_URL
+        key: database-url
 
   blog:
     enabled: true
@@ -42,7 +42,7 @@ services:
     secretEnv:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
-        key: DATABASE_URL
+        key: database-url
 
   comment:
     enabled: true
@@ -61,7 +61,7 @@ services:
     secretEnv:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
-        key: DATABASE_URL
+        key: database-url
 
   page:
     enabled: true
@@ -80,7 +80,7 @@ services:
     secretEnv:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
-        key: DATABASE_URL
+        key: database-url
 
   analytics:
     enabled: true
@@ -101,7 +101,7 @@ services:
     secretEnv:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
-        key: DATABASE_URL
+        key: database-url
 
   storage:
     enabled: true
@@ -120,7 +120,7 @@ services:
     secretEnv:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
-        key: DATABASE_URL
+        key: database-url
 
   web:
     enabled: true
