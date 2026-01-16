@@ -20,7 +20,7 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
 
   blog:
     enabled: true
@@ -36,7 +36,7 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
 
   comment:
     enabled: true
@@ -52,7 +52,7 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
 
   page:
     enabled: true
@@ -68,7 +68,7 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
 
   analytics:
     enabled: true
@@ -84,7 +84,7 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
       GA_PROPERTY_ID: "518938330"
       GA_CLIENT_EMAIL: "ga4-reader@jaehyeong-tech.iam.gserviceaccount.com"
 
@@ -102,7 +102,7 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-db:5432/jaehyeong_tech"
+      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
 
   web:
     enabled: true
