@@ -33,9 +33,29 @@ spec:
               value: {{ $svc.env.NODE_ENV | default "production" | quote }}
             {{- if $svc.env }}
             {{- range $key, $value := $svc.env }}
-            {{- if ne $key "NODE_ENV" }}
+            {{- if and (ne $key "NODE_ENV") (ne $key "DATABASE_URL") }}
             - name: {{ $key }}
               value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- /* DATABASE_URL from secret */}}
+            {{- if $svc.secretEnv }}
+            {{- if $svc.secretEnv.DATABASE_URL }}
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $svc.secretEnv.DATABASE_URL.secretName }}
+                  key: {{ $svc.secretEnv.DATABASE_URL.key | default "DATABASE_URL" }}
+            {{- end }}
+            {{- /* Other secret env vars */}}
+            {{- range $key, $ref := $svc.secretEnv }}
+            {{- if ne $key "DATABASE_URL" }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $ref.secretName }}
+                  key: {{ $ref.key | default $key }}
             {{- end }}
             {{- end }}
             {{- end }}

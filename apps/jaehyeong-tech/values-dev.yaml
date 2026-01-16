@@ -10,7 +10,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-75663ba
+      tag: dev-8efe0cd
     resources:
       requests:
         cpu: 50m
@@ -20,13 +20,16 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
+    secretEnv:
+      DATABASE_URL:
+        secretName: jaehyeong-tech-secret-dev
+        key: DATABASE_URL
 
   blog:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-75663ba
+      tag: dev-8efe0cd
     resources:
       requests:
         cpu: 50m
@@ -36,13 +39,16 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
+    secretEnv:
+      DATABASE_URL:
+        secretName: jaehyeong-tech-secret-dev
+        key: DATABASE_URL
 
   comment:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-75663ba
+      tag: dev-8efe0cd
     resources:
       requests:
         cpu: 50m
@@ -52,13 +58,16 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
+    secretEnv:
+      DATABASE_URL:
+        secretName: jaehyeong-tech-secret-dev
+        key: DATABASE_URL
 
   page:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-75663ba
+      tag: dev-8efe0cd
     resources:
       requests:
         cpu: 50m
@@ -68,7 +77,10 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
+    secretEnv:
+      DATABASE_URL:
+        secretName: jaehyeong-tech-secret-dev
+        key: DATABASE_URL
 
   analytics:
     enabled: true
@@ -84,15 +96,18 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
       GA_PROPERTY_ID: "518938330"
       GA_CLIENT_EMAIL: "ga4-reader@jaehyeong-tech.iam.gserviceaccount.com"
+    secretEnv:
+      DATABASE_URL:
+        secretName: jaehyeong-tech-secret-dev
+        key: DATABASE_URL
 
   storage:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-75663ba
+      tag: dev-8efe0cd
     resources:
       requests:
         cpu: 50m
@@ -102,13 +117,16 @@ services:
         memory: 256Mi
     env:
       NODE_ENV: development
-      DATABASE_URL: "postgresql://techblog:password@jaehyeong-tech-dev-postgresql:5432/jaehyeong_tech"
+    secretEnv:
+      DATABASE_URL:
+        secretName: jaehyeong-tech-secret-dev
+        key: DATABASE_URL
 
   web:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-0d887f4
+      tag: dev-8efe0cd
     resources:
       requests:
         cpu: 30m
