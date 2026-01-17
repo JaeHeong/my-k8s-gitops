@@ -57,7 +57,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-8677c24
+      tag: dev-94514d8
     resources:
       requests:
         cpu: 50m
@@ -116,7 +116,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-50806c6
+      tag: dev-94514d8
     resources:
       requests:
         cpu: 50m
