@@ -33,25 +33,9 @@ spec:
           claim: tenantId
 
 ---
-# RequestAuthentication for Workloads
-# NOTE: No outputClaimToHeaders here - gateway already handles header injection
-# This only validates JWT tokens, headers are passed through from gateway
-apiVersion: security.istio.io/v1
-kind: RequestAuthentication
-metadata:
-  name: {{ .Release.Name }}-jwt-auth
-  namespace: {{ .Release.Namespace }}
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
-  jwtRules:
-    - issuer: "https://{{ .Values.virtualService.host }}"
-      audiences:
-        - "{{ .Values.virtualService.host }}"
-      jwksUri: "http://{{ .Release.Name }}-auth.{{ .Release.Namespace }}.svc.cluster.local:3001/.well-known/jwks.json"
-      forwardOriginalToken: true
-
+# NOTE: Workload-level RequestAuthentication removed
+# Gateway handles all JWT validation and header injection
+# Services trust headers from the gateway (x-user-id, x-tenant-id, etc.)
 ---
 # AuthorizationPolicy: 인증이 필요한 경로 정의
 apiVersion: security.istio.io/v1
