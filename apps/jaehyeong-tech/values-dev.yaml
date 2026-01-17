@@ -38,7 +38,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-50806c6
+      tag: dev-984e6e2
     resources:
       requests:
         cpu: 50m
@@ -57,7 +57,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-94514d8
+      tag: dev-984e6e2
     resources:
       requests:
         cpu: 50m
@@ -76,7 +76,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-50806c6
+      tag: dev-984e6e2
     resources:
       requests:
         cpu: 50m
@@ -95,7 +95,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-50806c6
+      tag: dev-984e6e2
     resources:
       requests:
         cpu: 50m
@@ -116,7 +116,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-94514d8
+      tag: dev-984e6e2
     resources:
       requests:
         cpu: 50m
