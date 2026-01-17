@@ -30,12 +30,31 @@ spec:
             defaultSourceCode:
               inlineString: |
                 function envoy_on_request(request_handle)
-                  -- Set default x-tenant-id if not present or empty
-                  local tenant = request_handle:headers():get("x-tenant-id")
-                  if tenant == nil or tenant == "" then
-                    -- Remove existing empty header and add new one
-                    request_handle:headers():remove("x-tenant-id")
-                    request_handle:headers():add("x-tenant-id", "{{ .Values.virtualService.tenantId | default "tenant-default" }}")
+                  -- Only process requests for this app's hosts
+                  local host = request_handle:headers():get(":authority")
+                  {{- if .Values.virtualService.hosts }}
+                  local valid_hosts = { {{- range $i, $h := .Values.virtualService.hosts }}{{- if $i }}, {{- end }}"{{ $h }}"{{- end }} }
+                  {{- else if .Values.virtualService.host }}
+                  local valid_hosts = { "{{ .Values.virtualService.host }}" }
+                  {{- else }}
+                  local valid_hosts = {}
+                  {{- end }}
+
+                  local is_valid_host = false
+                  for _, h in ipairs(valid_hosts) do
+                    if host == h or (host and host:sub(1, #h + 1) == h .. ":") then
+                      is_valid_host = true
+                      break
+                    end
+                  end
+
+                  if is_valid_host then
+                    -- Set default x-tenant-id if not present or empty
+                    local tenant = request_handle:headers():get("x-tenant-id")
+                    if tenant == nil or tenant == "" then
+                      request_handle:headers():remove("x-tenant-id")
+                      request_handle:headers():add("x-tenant-id", "{{ .Values.virtualService.tenantId | default "tenant-default" }}")
+                    end
                   end
                 end
 {{- end }}

@@ -33,7 +33,9 @@ spec:
           claim: tenantId
 
 ---
-# RequestAuthentication for Workloads (backup)
+# RequestAuthentication for Workloads
+# NOTE: No outputClaimToHeaders here - gateway already handles header injection
+# This only validates JWT tokens, headers are passed through from gateway
 apiVersion: security.istio.io/v1
 kind: RequestAuthentication
 metadata:
@@ -49,15 +51,6 @@ spec:
         - "{{ .Values.virtualService.host }}"
       jwksUri: "http://{{ .Release.Name }}-auth.{{ .Release.Namespace }}.svc.cluster.local:3001/.well-known/jwks.json"
       forwardOriginalToken: true
-      outputClaimToHeaders:
-        - header: x-user-id
-          claim: userId
-        - header: x-user-email
-          claim: email
-        - header: x-user-role
-          claim: role
-        - header: x-tenant-id
-          claim: tenantId
 
 ---
 # AuthorizationPolicy: 인증이 필요한 경로 정의
