@@ -10,7 +10,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-1728910
+      tag: dev-ec4a54e
     resources:
       requests:
         cpu: 50m
