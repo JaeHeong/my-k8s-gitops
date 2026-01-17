@@ -37,7 +37,9 @@ spec:
 # Gateway handles all JWT validation and header injection
 # Services trust headers from the gateway (x-user-id, x-tenant-id, etc.)
 ---
-# AuthorizationPolicy: 인증이 필요한 경로 정의
+# AuthorizationPolicy: Allow all requests, auth handled by gateway + app middleware
+# Gateway validates JWT and injects x-user-id, x-tenant-id headers
+# Application middleware checks for these headers on protected routes
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
@@ -49,35 +51,8 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   action: ALLOW
   rules:
-    # 공개 엔드포인트 (인증 불필요)
-    - to:
-        - operation:
-            paths:
-              - "/health"
-              - "/ready"
-              - "/.well-known/*"
-              - "/api/auth/login"
-              - "/api/auth/register"
-              - "/api/auth/google"
-              - "/api/auth/google/callback"
-              - "/api/posts"
-              - "/api/posts/*"
-              - "/api/categories"
-              - "/api/categories/*"
-              - "/api/tags"
-              - "/api/tags/*"
-              - "/api/pages"
-              - "/api/pages/*"
-              - "/api/comments"
-              - "/api/visitors/*"
-              - "/api/bug-reports"
-              - "/*"  # Static files
-    # 인증된 요청 (JWT 필수)
-    - from:
-        - source:
-            requestPrincipals: ["*"]
-      to:
-        - operation:
-            paths:
-              - "/api/*"
+    # Allow all requests - authentication is handled by:
+    # 1. Gateway: JWT validation + header injection (x-user-id, x-tenant-id)
+    # 2. App middleware: checks x-user-id header for protected routes
+    - {}
 {{- end }}
