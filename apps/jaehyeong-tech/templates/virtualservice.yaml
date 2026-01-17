@@ -37,7 +37,7 @@ spec:
             port:
               number: 3001
 
-    # Blog Service (posts, categories, tags, bookmarks)
+    # Blog Service (posts, categories, tags, bookmarks, drafts)
     - match:
         - uri:
             prefix: /api/posts
@@ -47,6 +47,8 @@ spec:
             prefix: /api/tags
         - uri:
             prefix: /api/bookmarks
+        - uri:
+            prefix: /api/drafts
       headers:
         request:
           set:
@@ -103,12 +105,14 @@ spec:
             port:
               number: 3005
 
-    # Storage Service
+    # Storage Service (files, upload, metadata)
     - match:
         - uri:
             prefix: /api/files
         - uri:
             prefix: /api/upload
+        - uri:
+            prefix: /api/metadata
       headers:
         request:
           set:
