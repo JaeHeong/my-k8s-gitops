@@ -5,7 +5,35 @@
 
 {{- if .Values.virtualService.enabled }}
 ---
-# RequestAuthentication: JWT 토큰 검증
+# RequestAuthentication for Ingress Gateway
+# JWT 클레임을 헤더로 변환 (gateway 레벨)
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: {{ .Release.Name }}-gateway-jwt-auth
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+    - issuer: "https://{{ .Values.virtualService.host }}"
+      audiences:
+        - "{{ .Values.virtualService.host }}"
+      jwksUri: "http://{{ .Release.Name }}-auth.{{ .Release.Namespace }}.svc.cluster.local:3001/.well-known/jwks.json"
+      forwardOriginalToken: true
+      outputClaimToHeaders:
+        - header: x-user-id
+          claim: userId
+        - header: x-user-email
+          claim: email
+        - header: x-user-role
+          claim: role
+        - header: x-tenant-id
+          claim: tenantId
+
+---
+# RequestAuthentication for Workloads (backup)
 apiVersion: security.istio.io/v1
 kind: RequestAuthentication
 metadata:
