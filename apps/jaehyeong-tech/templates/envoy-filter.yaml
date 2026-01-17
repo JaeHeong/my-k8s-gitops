@@ -30,9 +30,11 @@ spec:
             defaultSourceCode:
               inlineString: |
                 function envoy_on_request(request_handle)
-                  -- Always add x-tenant-id header if not present
+                  -- Set default x-tenant-id if not present or empty
                   local tenant = request_handle:headers():get("x-tenant-id")
                   if tenant == nil or tenant == "" then
+                    -- Remove existing empty header and add new one
+                    request_handle:headers():remove("x-tenant-id")
                     request_handle:headers():add("x-tenant-id", "{{ .Values.virtualService.tenantId | default "tenant-default" }}")
                   end
                 end
