@@ -1,0 +1,78 @@
+# Istio JWT Authentication for Jaehyeong Tech
+# - RequestAuthentication: JWT 검증
+# - AuthorizationPolicy: 인증 정책
+# - EnvoyFilter: JWT 클레임을 헤더로 전달
+
+{{- if .Values.virtualService.enabled }}
+---
+# RequestAuthentication: JWT 토큰 검증
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: {{ .Release.Name }}-jwt-auth
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  jwtRules:
+    - issuer: "https://{{ .Values.virtualService.host }}"
+      audiences:
+        - "{{ .Values.virtualService.host }}"
+      jwksUri: "http://{{ .Release.Name }}-auth.{{ .Release.Namespace }}.svc.cluster.local:3001/.well-known/jwks.json"
+      forwardOriginalToken: true
+      outputClaimToHeaders:
+        - header: x-user-id
+          claim: userId
+        - header: x-user-email
+          claim: email
+        - header: x-user-role
+          claim: role
+        - header: x-tenant-id
+          claim: tenantId
+
+---
+# AuthorizationPolicy: 인증이 필요한 경로 정의
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ .Release.Name }}-auth-policy
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  action: ALLOW
+  rules:
+    # 공개 엔드포인트 (인증 불필요)
+    - to:
+        - operation:
+            paths:
+              - "/health"
+              - "/ready"
+              - "/.well-known/*"
+              - "/api/auth/login"
+              - "/api/auth/register"
+              - "/api/auth/google"
+              - "/api/auth/google/callback"
+              - "/api/posts"
+              - "/api/posts/*"
+              - "/api/categories"
+              - "/api/categories/*"
+              - "/api/tags"
+              - "/api/tags/*"
+              - "/api/pages"
+              - "/api/pages/*"
+              - "/api/comments"
+              - "/api/visitors/*"
+              - "/api/bug-reports"
+              - "/*"  # Static files
+    # 인증된 요청 (JWT 필수)
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      to:
+        - operation:
+            paths:
+              - "/api/*"
+{{- end }}

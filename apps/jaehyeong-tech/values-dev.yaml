@@ -27,9 +27,12 @@ services:
       ADMIN_EMAILS:
         secretName: jaehyeong-tech-secret-dev
         key: admin-emails
-      JWT_SECRET:
+      JWT_PRIVATE_KEY:
         secretName: jaehyeong-tech-secret-dev
-        key: jwt-secret
+        key: jwt-private-key
+      JWT_PUBLIC_KEY:
+        secretName: jaehyeong-tech-secret-dev
+        key: jwt-public-key
 
   blog:
     enabled: true
@@ -49,9 +52,6 @@ services:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
         key: database-url
-      JWT_SECRET:
-        secretName: jaehyeong-tech-secret-dev
-        key: jwt-secret
 
   comment:
     enabled: true
@@ -71,9 +71,6 @@ services:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
         key: database-url
-      JWT_SECRET:
-        secretName: jaehyeong-tech-secret-dev
-        key: jwt-secret
 
   page:
     enabled: true
@@ -93,9 +90,6 @@ services:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
         key: database-url
-      JWT_SECRET:
-        secretName: jaehyeong-tech-secret-dev
-        key: jwt-secret
 
   analytics:
     enabled: true
@@ -117,9 +111,6 @@ services:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
         key: database-url
-      JWT_SECRET:
-        secretName: jaehyeong-tech-secret-dev
-        key: jwt-secret
 
   storage:
     enabled: true
@@ -139,9 +130,6 @@ services:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
         key: database-url
-      JWT_SECRET:
-        secretName: jaehyeong-tech-secret-dev
-        key: jwt-secret
 
   web:
     enabled: true

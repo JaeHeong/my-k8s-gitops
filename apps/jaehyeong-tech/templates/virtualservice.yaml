@@ -17,6 +17,16 @@ spec:
   gateways:
     - {{ .Values.virtualService.gateway }}
   http:
+    # JWKS Endpoint (for Istio JWT validation)
+    - match:
+        - uri:
+            exact: /.well-known/jwks.json
+      route:
+        - destination:
+            host: {{ .Release.Name }}-auth
+            port:
+              number: 3001
+
     # Auth Service (auth, author, users, tenants)
     - match:
         - uri:
