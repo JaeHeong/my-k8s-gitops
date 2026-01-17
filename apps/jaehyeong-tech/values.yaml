@@ -118,3 +118,6 @@ postgresql:
 virtualService:
   enabled: true
   gateway: istio-system/main-gateway
+  # Tenant ID for public requests (without JWT)
+  # Used by tenant resolver as fallback when host-based resolution is not available
+  tenantId: jaehyeong-tech

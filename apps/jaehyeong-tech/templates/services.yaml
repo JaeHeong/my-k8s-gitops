@@ -32,6 +32,10 @@ spec:
               value: "{{ $svc.port }}"
             - name: NODE_ENV
               value: {{ $svc.env.NODE_ENV | default "production" | quote }}
+            {{- if $.Values.virtualService.tenantId }}
+            - name: TENANT_ID
+              value: {{ $.Values.virtualService.tenantId | quote }}
+            {{- end }}
             {{- if $svc.env }}
             {{- range $key, $value := $svc.env }}
             {{- if and (ne $key "NODE_ENV") (ne $key "DATABASE_URL") }}
