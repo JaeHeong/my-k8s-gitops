@@ -24,6 +24,9 @@ services:
       DATABASE_URL:
         secretName: jaehyeong-tech-secret-dev
         key: database-url
+      ADMIN_EMAILS:
+        secretName: jaehyeong-tech-secret-dev
+        key: admin-emails
 
   blog:
     enabled: true
