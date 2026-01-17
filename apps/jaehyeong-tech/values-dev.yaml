@@ -38,7 +38,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-c226f10
+      tag: dev-f00c1c8
     resources:
       requests:
         cpu: 50m
@@ -57,7 +57,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-c226f10
+      tag: dev-f00c1c8
     resources:
       requests:
         cpu: 50m
@@ -76,7 +76,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-c226f10
+      tag: dev-f00c1c8
     resources:
       requests:
         cpu: 50m
@@ -95,7 +95,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-c226f10
+      tag: dev-f00c1c8
     resources:
       requests:
         cpu: 50m
@@ -116,7 +116,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-c226f10
+      tag: dev-f00c1c8
     resources:
       requests:
         cpu: 50m
