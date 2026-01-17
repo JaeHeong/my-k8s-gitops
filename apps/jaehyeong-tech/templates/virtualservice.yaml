@@ -37,10 +37,6 @@ spec:
             prefix: /api/users
         - uri:
             prefix: /api/tenants
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-auth
@@ -59,10 +55,6 @@ spec:
             prefix: /api/bookmarks
         - uri:
             prefix: /api/drafts
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-blog
@@ -73,10 +65,6 @@ spec:
     - match:
         - uri:
             prefix: /api/comments
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-comment
@@ -87,10 +75,6 @@ spec:
     - match:
         - uri:
             prefix: /api/pages
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-page
@@ -105,10 +89,6 @@ spec:
             prefix: /api/visitors
         - uri:
             prefix: /api/bug-reports
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-analytics
@@ -123,10 +103,6 @@ spec:
             prefix: /api/upload
         - uri:
             prefix: /api/metadata
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-storage
@@ -141,10 +117,6 @@ spec:
             exact: /sitemap.xml
         - uri:
             exact: /robots.txt
-      headers:
-        request:
-          set:
-            x-tenant-id: {{ .Values.virtualService.tenantId | default "default" }}
       route:
         - destination:
             host: {{ .Release.Name }}-blog
