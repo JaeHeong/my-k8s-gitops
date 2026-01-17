@@ -24,34 +24,34 @@ spec:
       patch:
         operation: INSERT_AFTER
         value:
-          name: envoy.filters.http.lua
+          name: envoy.filters.http.lua.tenant_default
           typed_config:
             "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
-            inlineCode: |
-              function envoy_on_request(request_handle)
-                -- Only process requests for this app's hosts
-                local host = request_handle:headers():get(":authority")
-                {{- if .Values.virtualService.hosts }}
-                local valid_hosts = { {{- range $i, $h := .Values.virtualService.hosts }}{{- if $i }}, {{- end }}"{{ $h }}"{{- end }} }
-                {{- else if .Values.virtualService.host }}
-                local valid_hosts = { "{{ .Values.virtualService.host }}" }
-                {{- else }}
-                local valid_hosts = {}
-                {{- end }}
+            defaultSourceCode:
+              inlineString: |
+                function envoy_on_request(request_handle)
+                  local host = request_handle:headers():get(":authority")
+                  {{- if .Values.virtualService.hosts }}
+                  local valid_hosts = { {{- range $i, $h := .Values.virtualService.hosts }}{{- if $i }}, {{- end }}"{{ $h }}"{{- end }} }
+                  {{- else if .Values.virtualService.host }}
+                  local valid_hosts = { "{{ .Values.virtualService.host }}" }
+                  {{- else }}
+                  local valid_hosts = {}
+                  {{- end }}
 
-                local is_valid_host = false
-                for _, h in ipairs(valid_hosts) do
-                  if host == h then
-                    is_valid_host = true
-                    break
+                  local is_valid_host = false
+                  for _, h in ipairs(valid_hosts) do
+                    if host == h or string.match(host, "^" .. h .. ":") then
+                      is_valid_host = true
+                      break
+                    end
+                  end
+
+                  if is_valid_host then
+                    local tenant = request_handle:headers():get("x-tenant-id")
+                    if tenant == nil or tenant == "" then
+                      request_handle:headers():add("x-tenant-id", "{{ .Values.virtualService.tenantId | default "tenant-default" }}")
+                    end
                   end
                 end
-
-                if is_valid_host then
-                  local tenant = request_handle:headers():get("x-tenant-id")
-                  if tenant == nil or tenant == "" then
-                    request_handle:headers():add("x-tenant-id", "{{ .Values.virtualService.tenantId | default "tenant-default" }}")
-                  end
-                end
-              end
 {{- end }}
