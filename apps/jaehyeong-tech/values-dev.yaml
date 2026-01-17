@@ -164,4 +164,4 @@ db:
 # Dev 도메인
 virtualService:
   host: dev-tech.jaehyeong.site
-  tenantId: jaehyeong-tech
+  tenantId: tenant-jaehyeong-tech
