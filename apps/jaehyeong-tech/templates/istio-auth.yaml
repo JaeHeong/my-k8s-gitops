@@ -15,7 +15,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      istio: ingressgateway
+      istio: gateway
   jwtRules:
     - issuer: "https://{{ .Values.virtualService.host }}"
       audiences:
