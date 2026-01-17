@@ -48,7 +48,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      tag: dev-1728910
+      tag: dev-cedfd56
     resources:
       requests:
         cpu: 50m
